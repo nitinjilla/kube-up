@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "bento/ubuntu-22.04"
   
-  #PROVISION MASTER NODE  
+  # PROVISION MASTER NODE  
   config.vm.define "cp" do |cp|
     cp.vm.provision "shell", inline: <<-EOL 
     echo "Provisioning control plane node!"
@@ -18,19 +18,17 @@ Vagrant.configure("2") do |config|
 
     cp.vm.hostname = "cp"
     cp.vm.network "private_network", ip: "192.168.10.10"
-    # cp.vm.provision "shell", env: {"API_SERVER_IP" => "192.168.10.10"}
-    # cp.vm.provision "shell", path: "ready-nodes.sh"
     cp.vm.provision "shell", path: "ready-nodes.sh"
     cp.vm.provision "shell", env: {"API_SERVER_IP" => "192.168.10.10"}, path: "start-cluster.sh"    
 
-    #VIRTUAL BOX RESOURCE LIMITS FOR CONTROL PLANE
+    # VIRTUAL BOX RESOURCE LIMITS FOR CONTROL PLANE
     cp.vm.provider "virtualbox" do |vb|
       vb.cpus = 2
       vb.memory = 2048
     end
   end
   
-  #PROVISION WORKER NODES
+  # PROVISION WORKER NODES
   WN_COUNT = 2  # Set worker node count as per your requirement
   (1..WN_COUNT).each do |i|
     config.vm.define "wn-#{i}" do |wn|
@@ -42,7 +40,7 @@ Vagrant.configure("2") do |config|
       wn.vm.network "private_network", ip: "192.168.10.#{10+i}"
       wn.vm.provision "shell", path: "ready-nodes.sh"
 
-      #VIRTUAL BOX RESOURCE LIMITS FOR WORKER NODE
+      # VIRTUAL BOX RESOURCE LIMITS FOR WORKER NODE
       wn.vm.provider "virtualbox" do |vb|
         vb.cpus = 1
         vb.memory = 1024

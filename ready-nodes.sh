@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # Setup for control plane node
 
@@ -21,6 +21,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
+# Applies sysctl configuration without reboot
 sudo sysctl --system
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -43,7 +44,7 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 sudo apt-get update
 KUBERNETES_VERSION=1.26.0-00
 
-#Install n-1 version, because Kubernetes version upgrade is an activity in itself
+# Install n-1 version, because Kubernetes version upgrade is an activity in itself
 sudo apt-get install -y kubelet=$KUBERNETES_VERSION kubeadm=$KUBERNETES_VERSION kubectl=$KUBERNETES_VERSION 
 sudo apt-mark hold kubelet kubeadm kubectl containerd
 
