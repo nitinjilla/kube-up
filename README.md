@@ -7,10 +7,8 @@
 ### 2. Switch to kube-up directory
 > cd kube-up
 
-### 3. Spin up the vagrant boxes
+### 3. Spin up the vagrant boxes This may take some time (around 10 mins(?))
 > vagrant up
-
-### This may take some time (around 10 mins(?))
 
 ### 4. Check Kubernetes pods status
 > kubectl get pods
