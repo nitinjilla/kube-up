@@ -16,6 +16,7 @@
 
 ### 4. Log in to the master node
 > vagrant ssh cp
+
 Join the worker nodes to the K8s cluster
 
 ### 4. Check Kubernetes pods status
